@@ -13,11 +13,10 @@ class TestUsers:
         response = client.get_users_id(UsersResponse, id_user="2")
         assert response.status_code == 200, "Check response"
 
-    @pytest.mark.parametrize("id_user", [1, 2, 3]) #1,2,3 - магические числа, они обычно плохо смотрятся в таком виде. Мб стоит сделать генерацию? 
+    @pytest.mark.parametrize("id_user", [1, 2, 3])
     def test_get_users_id_list(self, client, id_user):
         """ Проверка GET запроса на юзера по id c разными значениями."""
         response = client.get_users_id(UsersResponse, id_user=id_user)
-        # print('\n', response.content) - этот комментарий для кого?
         assert response.status_code == 200, "Check response"
 
     def test_post_user(self, client):
@@ -46,7 +45,7 @@ class TestUsers:
 
     @pytest.mark.parametrize("age", [None, 1234, True])
     def test_post_user_age(self, client, age):
-        """ Проверка Post запроса на Создание юзера с невалидными данными (age)."""
-        data = User(age=str(age)) #обычно от такого рода конструкций ()(()()) стараются избавляться, выносить из скобок для удобности чтения. Хз как у питонистов)
+        """ Проверка Post запроса на создание юзера с невалидными данными (age)."""
+        data = User(age=str(age))
         response = client.post_users(data, UsersResponsePost)
         assert response.status_code == 201, "Check response"
